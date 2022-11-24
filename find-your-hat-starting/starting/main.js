@@ -29,15 +29,26 @@ let Field = class {
         this._twodarr[row][column];
     }
 
-    test_move_down() {
-        let down = direction;
-        if (down === 'd') {
-            // this._twodarr[this._row][this._column] = pathCharacter;
+    test_move() {
+        let arrow = direction;
+        if (arrow === 'd') {
             this._row += 1;
-            this._twodarr[this._row][this._column] = pathCharacter;
+        } else if (arrow === 'u') {
+            this._row -= 1;
+        } else if (arrow === 'r') {
+            this._column += 1;
+        } else if (arrow === 'l') {
+            this._column -= 1;
+        } else {
+            console.log('unknown command')
         }
+        
+        this._twodarr[this._row][this._column] = pathCharacter;
+
         this.print();
     }
+
+
 
     move() {
         switch(direction()) {
@@ -107,4 +118,4 @@ const direction = prompt('Which way?');
 // } (while )
 
 // myField.print();
-myField.test_move_down();
+myField.test_move();
