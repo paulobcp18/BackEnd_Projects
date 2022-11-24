@@ -43,9 +43,19 @@ let Field = class {
             console.log('unknown command')
         }
         
-        this._twodarr[this._row][this._column] = pathCharacter;
+        if (this._twodarr[this._row][this._column] === hole) {
+            console.log('Sorry, you fell down a hole!');
 
-        this.print();
+        } else if (this._twodarr[this._row][this._column] === fieldCharacter) {
+            this._twodarr[this._row][this._column] = pathCharacter;
+            this.print();
+
+        } else if (this._row < 0 || this._row >= this._twodarr.length) {
+            console.log('Out of bounds')
+        } else if (this.column < 0 || this_column >= this._twodarr[0].length) {
+            console.log('Out of bounds')
+        }
+        
     }
 
 
@@ -106,7 +116,7 @@ let Field = class {
 
 const myField = new Field([
     ['*', '░', 'O'],
-    ['░', 'O', '░'],
+    ['O', 'O', '░'],
     ['░', '^', '░'],
 ]);
 
