@@ -38,6 +38,9 @@ let Field = class {
         } else {
             console.log('unknown command')
         }
+    }
+
+    position() {
 
         if (this._column < 0 || this._row < 0) {
             console.log('Out of bounds')
@@ -49,7 +52,7 @@ let Field = class {
             } else if (this._twodarr[this._row][this._column] === fieldCharacter) {
                 this._twodarr[this._row][this._column] = pathCharacter;
                 this.print();
-                return(this._twodarr);
+                // this.move();
 
             } else if (this._column >= this._twodarr[0].length || this._row >= this._twodarr.length) {
                     console.log('Out of bounds')
@@ -75,4 +78,5 @@ const direction = prompt('Which way?');
 // } (while )
 
 // myField.print();
-myField.field_now();
+myField.move();
+myField.position();
