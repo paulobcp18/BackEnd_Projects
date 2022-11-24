@@ -21,15 +21,11 @@ let Field = class {
         
     }
 
-    set set_new_value(updated_field) {
-        this._twodarr = updated_field;
+    field_now() {
+        this._twodarr = this.move()
     }
 
-    get position() {
-        this._twodarr[row][column];
-    }
-
-    test_move() {
+    move() {
         let arrow = direction;
         if (arrow === 'd') {
             this._row += 1;
@@ -42,81 +38,32 @@ let Field = class {
         } else {
             console.log('unknown command')
         }
-        
-        if (this._twodarr[this._row][this._column] === hole) {
-            console.log('Sorry, you fell down a hole!');
 
-        } else if (this._twodarr[this._row][this._column] === fieldCharacter) {
-            this._twodarr[this._row][this._column] = pathCharacter;
-            this.print();
-
-        } else if (this._row < 0 || this._row >= this._twodarr.length) {
+        if (this._column < 0 || this._row < 0) {
             console.log('Out of bounds')
-        } else if (this.column < 0 || this_column >= this._twodarr[0].length) {
-            console.log('Out of bounds')
+        } else {
+
+            if (this._twodarr[this._row][this._column] === hole) {
+                console.log('Sorry, you fell down a hole!');
+    
+            } else if (this._twodarr[this._row][this._column] === fieldCharacter) {
+                this._twodarr[this._row][this._column] = pathCharacter;
+                this.print();
+                return(this._twodarr);
+
+            } else if (this._column >= this._twodarr[0].length || this._row >= this._twodarr.length) {
+                    console.log('Out of bounds')
+
+            }
         }
-        
-    }
 
 
-
-    move() {
-        switch(direction()) {
-            
-            case 'r':
-                if (this._twodarr[i][j+1] === fieldCharacter) {
-                    this._twodarr[i][j] = pathCharacter;
-                    this._twodarr[i][j+1] = pathCharacter;
-                } else if (this._twodarr[i][j+1] === hole) {
-                    console.log('Sorry, you fell down a hole!')
-                    break;
-                } else {
-                    console.log('Out of bounds!')
-                    break
-                }
-
-            case 'l':
-                if (this._twodarr[i][j+1] === fieldCharacter) {
-                this._twodarr[i][j] = pathCharacter;
-                this._twodarr[i][j-1] = pathCharacter;
-                } else if (this._twodarr[i][j+1] === hole) {
-                    console.log('Sorry, you fell down a hole!')
-                    break;
-                } else {
-                    console.log('Out of bounds!')
-                    break
-                }
-                
-            case 'u':
-                if (this._twodarr[i][j+1] === fieldCharacter) {
-                    this._twodarr[i][j] = pathCharacter;
-                    this._twodarr[i-1][j] = pathCharacter;
-                } else if (this._twodarr[i][j+1] === hole) {
-                    console.log('Sorry, you fell down a hole!')
-                    break;
-                } else {
-                    console.log('Out of bounds!')
-                    break
-                }     
-                
-            case 'd':
-                if (this._twodarr[i][j+1] === fieldCharacter) {
-                    this._twodarr[i][j] = pathCharacter;
-                    this._twodarr[i+1][j] = pathCharacter;
-                } else if (this._twodarr[i][j+1] === hole) {
-                    console.log('Sorry, you fell down a hole!')
-                    break;
-                } else {
-                    console.log('Out of bounds!')
-                    break
-                }
-        }
     }
 }
 
 const myField = new Field([
     ['*', '░', 'O'],
-    ['O', 'O', '░'],
+    ['░', 'O', '░'],
     ['░', '^', '░'],
 ]);
 
@@ -128,4 +75,4 @@ const direction = prompt('Which way?');
 // } (while )
 
 // myField.print();
-myField.test_move();
+myField.field_now();
