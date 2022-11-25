@@ -26,7 +26,9 @@ let Field = class {
     }
 
     move() {
-        let arrow = direction;
+
+        const arrow = prompt('Which way?');
+        
         if (arrow === 'd') {
             this._row += 1;
         } else if (arrow === 'u') {
@@ -42,25 +44,53 @@ let Field = class {
 
     position() {
 
+        const rows = this._twodarr.length;
+        const columns = this._twodarr[0].length;
+
         if (this._column < 0 || this._row < 0) {
-            console.log('Out of bounds')
+            console.log('Out of bounds');
+            return(1);
+        } else if (this._row >= rows || this._column >= columns) {
+            console.log('Out of bounds');
+            return(1);
+
         } else {
 
             if (this._twodarr[this._row][this._column] === hole) {
                 console.log('Sorry, you fell down a hole!');
+                return(1);
     
             } else if (this._twodarr[this._row][this._column] === fieldCharacter) {
                 this._twodarr[this._row][this._column] = pathCharacter;
                 this.print();
-                // this.move();
 
-            } else if (this._column >= this._twodarr[0].length || this._row >= this._twodarr.length) {
-                    console.log('Out of bounds')
+            } else if (this._twodarr[this._row][this._column] === hat) {
+                console.log('Congrats! You found your hat!');
+                return(1)
 
-            }
+            } //else {
+            //     this.print();
+            // } 
         }
 
 
+    }
+
+    game_flow() {
+
+        let i = 0
+        do {
+            
+            this.move();
+            this.position();
+            
+            if (this.position() === 1) {
+                break;
+            }
+            i++;
+
+        } while ( i < 6 )
+                
     }
 }
 
@@ -71,12 +101,14 @@ const myField = new Field([
 ]);
 
 
-const direction = prompt('Which way?');
+
 
 // do direction() {
 //     console.log(myField.print())
 // } (while )
 
 // myField.print();
-myField.move();
-myField.position();
+myField.game_flow();
+// myField.position();
+
+// console.log(myField._twodarr[0].length)
