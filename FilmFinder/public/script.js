@@ -1,29 +1,81 @@
+// const help = require('./helpers')
+// import { getSelectedGenre } from './helpers.js'
+
 const tmdbKey = 'cb1226806121032af3a180b6374001c8';
 const req_api_example = 'https://api.themoviedb.org/3/movie/550?api_key=cb1226806121032af3a180b6374001c8'
 const v4_auth = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjEyMjY4MDYxMjEwMzJhZjNhMTgwYjYzNzQwMDFjOCIsInN1YiI6IjYzODQxNDE4YmYwOWQxMDBhZmQxNmI1MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wJbFU9mvIrHQQk0e-aavA1HKP6PDROYpnehwpweghso'
-const tmdbBaseUrl = 'https://api.themoviedb.org/3/movie/76341?api_key=';
+const tmdbBaseUrl = 'https://api.themoviedb.org/3';
 const playBtn = document.getElementById('playBtn');
 
-const getGenres = () => {
-
+const getGenres = async () => {
+  const genreRequestEndpoint = '/genre/movie/list';
+  const requestParams = `?api_key=${tmdbKey}`;
+  const urlToFetch = `${tmdbBaseUrl}${genreRequestEndpoint}${requestParams}`;
+  
+  try {
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      // console.log(jsonResponse);
+      const genres = await jsonResponse.genres;
+      return genres;
+    }
+  } catch(error) {
+    console.log(error);
+  }
+  
 };
 
-const getMovies = () => {
+
+const getMovies = async () => {
   const selectedGenre = getSelectedGenre();
-
+  const discoverMovieEndpoint = '/discover/movie';
+  const requestParams = `?api_key=${tmdbKey}&with_genres=${selectedGenre}`;
+  const urlToFetch = `${tmdbBaseUrl}${discoverMovieEndpoint}${requestParams}`;
+  
+  try{
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      const movies = jsonResponse.results;
+      return movies;
+    }
+  } catch(error) {
+    console.log(error);
+  }
 };
 
-const getMovieInfo = () => {
 
+
+const getMovieInfo = async (movie) => {
+  const movieId = movie.id;
+  const movieEndpoint = `/movie/${movieId}`;
+  const requestParams = `?api_key=${tmdbKey}`;
+  const urlToFetch = `${tmdbBaseUrl}${movieEndpoint}${requestParams}`;
+
+  try {
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      const movieInfo = jsonResponse;
+      return movieInfo;
+    }
+  } catch(error) {
+    console.log(error);
+  }
 };
+
 
 // Gets a list of movies and ultimately displays the info of a random movie from the list
-const showRandomMovie = () => {
+const showRandomMovie = async () => {
   const movieInfo = document.getElementById('movieInfo');
   if (movieInfo.childNodes.length > 0) {
     clearCurrentMovie();
   };
-
+  const movies = await getMovies();
+  const randomMovie = getRandomMovie(movies);
+  const info = await getMovieInfo(randomMovie);
+  displayMovie(info);
 };
 
 getGenres().then(populateGenreDropdown);
