@@ -1,9 +1,7 @@
 // const help = require('./helpers')
 // import { getSelectedGenre } from './helpers.js'
 
-const tmdbKey = 'cb1226806121032af3a180b6374001c8';
-const req_api_example = 'https://api.themoviedb.org/3/movie/550?api_key=cb1226806121032af3a180b6374001c8'
-const v4_auth = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYjEyMjY4MDYxMjEwMzJhZjNhMTgwYjYzNzQwMDFjOCIsInN1YiI6IjYzODQxNDE4YmYwOWQxMDBhZmQxNmI1MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wJbFU9mvIrHQQk0e-aavA1HKP6PDROYpnehwpweghso'
+const tmdbKey = 'api_key';
 const tmdbBaseUrl = 'https://api.themoviedb.org/3';
 const playBtn = document.getElementById('playBtn');
 
