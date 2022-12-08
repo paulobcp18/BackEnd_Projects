@@ -264,6 +264,7 @@ const deleteAllFromDatabase = (modelType) => {
 }
 
 module.exports = {
+  createMinion,
   createMeeting,
   getAllFromDatabase,
   getFromDatabaseById,
@@ -271,4 +272,7 @@ module.exports = {
   updateInstanceInDatabase,
   deleteFromDatabasebyId,
   deleteAllFromDatabase,
+  createIdea,
+  isValidIdea,
+  isValidMinion
 };

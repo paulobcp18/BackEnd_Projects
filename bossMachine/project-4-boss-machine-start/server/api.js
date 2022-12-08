@@ -3,7 +3,8 @@ const apiRouter = express.Router();
 
 const { createMinion, addToDatabase, getFromDatabaseById, 
     updateInstanceInDatabase, deleteFromDatabasebyId, 
-    getAllFromDatabase, deleteAllFromDatabase } = require('./db');
+    getAllFromDatabase, deleteAllFromDatabase, createIdea,
+    createMeeting, isValidIdea, isValidMinion } = require('./db');
 
 const { checkMillionDollarIdea } = require('./checkMillionDollarIdea');
 
@@ -117,7 +118,7 @@ apiRouter.get('/meetings', (req, res, next) => {
 
 apiRouter.post('/meetings', (req, res, next) => {
     const newMeeting = createMeeting();
-    if (isValidMeeting(newMeeting)) {
+    if (newMeeting) {
         addToDatabase('meetings', newMeeting);
         res.status(201).send(newMeeting);
     } else {
